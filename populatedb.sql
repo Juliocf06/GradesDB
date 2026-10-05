@@ -1,3 +1,5 @@
+USE GradesDB;
+
 DELETE FROM people;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -12,13 +14,6 @@ DELETE FROM grades;
 DELETE FROM subject_enrollments;
 DELETE FROM teaching_loads;
 SET FOREIGN_KEY_CHECKS = 1;
-
-INSERT INTO professors (professor_id, category) VALUES
-    (1, 'Catedrático'),
-    (2, 'Titular'),
-    (3, 'AyudanteDoctor'),
-    (4, 'Titular'),
-    (5, 'Ayudante');
 	
 INSERT INTO people (person_id, dni, first_name, last_name, age, email) VALUES
     (1, '00000001A', 'David', 'Ruiz', 50, 'druiz@us.es'),
@@ -46,6 +41,13 @@ INSERT INTO people (person_id, dni, first_name, last_name, age, email) VALUES
     (23, '10000023Y', 'Irene', 'Salas', 21, 'irene.salas@alum.us.es'),
     (24, '10000024Z', 'Álex', 'Delgado', 22, 'alex.delgado@alum.us.es'),
     (25, '10000025A', 'Paula', 'Bermejo', 21, 'paula.bermejo@alum.us.es');
+    
+    INSERT INTO professors (professor_id, category) VALUES
+    (1, 'Catedrático'),
+    (2, 'Titular'),
+    (3, 'AyudanteDoctor'),
+    (4, 'Titular'),
+    (5, 'Ayudante');
     
     INSERT INTO students (student_id, access_method) VALUES
     (6, 'Selectividad'),
