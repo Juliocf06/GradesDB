@@ -6,6 +6,8 @@ DELETE FROM professors;
 DELETE FROM students;
 DELETE FROM `degrees`;
 DELETE FROM `subjects`;
+DELETE FROM `groups`;
+DELETE FROM group_enrollments;
 SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO professors (professor_id, category) VALUES
@@ -78,7 +80,6 @@ INSERT INTO subjects (
     course,
     subject_type
 ) VALUES
-    -- Primer curso (Tecnologías Informáticas)
     (1, 3, 'Fundamentos de Programación', 'FP', 12, 1, 'Formación Básica'),
     (2, 3, 'Cálculo Infinitesimal y Numérico', 'CIN', 6, 1, 'Formación Básica'),
     (3, 3, 'Circuitos Electrónicos Digitales', 'CED', 6, 1, 'Formación Básica'),
@@ -88,7 +89,6 @@ INSERT INTO subjects (
     (7, 3, 'Álgebra Lineal y Numérica', 'ALN', 6, 1, 'Formación Básica'),
     (8, 3, 'Estadística', 'EST', 6, 1, 'Formación Básica'),
     (9, 3, 'Estructura de Computadores', 'EC', 6, 1, 'Formación Básica'),
-    -- Segundo curso (Tecnologías Informáticas)
     (10, 3, 'Análisis y Diseño de Datos y Algoritmos', 'ADDA', 12, 2, 'Obligatoria'),
     (11, 3, 'Introducción a la Ingeniería del Software y los Sistemas de Información I', 'IISSI-1', 6, 2, 'Obligatoria'),
     (12, 3, 'Matemática Discreta', 'MD', 6, 2, 'Obligatoria'),
@@ -97,3 +97,18 @@ INSERT INTO subjects (
     (15, 3, 'Introducción a la Ingeniería del Software y los Sistemas de Información II', 'IISSI-2', 6, 2, 'Obligatoria'),
     (16, 3, 'Sistemas Operativos', 'SO', 6, 2, 'Obligatoria'),
     (17, 3, 'Inteligencia Artificial', 'IA', 6, 2, 'Obligatoria');
+    
+INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year) VALUES
+        (1, 11, 'T1', 'Teoría', 2024),
+        (2, 11, 'L1', 'Laboratorio', 2024),
+        (3, 11, 'L2', 'Laboratorio', 2024);
+
+INSERT INTO group_enrollments (student_id, group_id) VALUES
+        (6, 1), (7, 1), (8, 1), (9, 1), (10, 1),
+        (11, 1), (12, 1), (13, 1), (14, 1), (15, 1),
+        (16, 1), (17, 1), (18, 1), (19, 1), (20, 1),
+        (21, 1), (22, 1), (23, 1), (24, 1), (25, 1),
+        (6, 2), (7, 2), (8, 2), (9, 2), (10, 2),
+        (11, 2), (12, 2), (13, 2), (14, 2), (15, 2),
+        (16, 3), (17, 3), (18, 3), (19, 3), (20, 3),
+        (21, 3), (22, 3), (23, 3), (24, 3), (25, 3);
