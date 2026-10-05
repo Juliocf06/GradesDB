@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `groups`;
 DROP TABLE IF EXISTS group_enrollments;
 DROP TABLE IF EXISTS grades;
 DROP TABLE if EXISTS subject_enrollments;
-DROP TABLE IF EXISTS teaching_loadsPermalink;
+DROP TABLE IF EXISTS teaching_loads;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -94,7 +94,7 @@ CREATE TABLE subject_enrollments (
 	 FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
 );
 
-CREATE TABLE teaching_loadsPermalink (
+CREATE TABLE teaching_loads (
 	 professor_id INT,
 	 group_id INT,
 	 credits DECIMAL(4,1) NOT NULL,

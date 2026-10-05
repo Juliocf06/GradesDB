@@ -10,7 +10,7 @@ DELETE FROM `groups`;
 DELETE FROM group_enrollments;
 DELETE FROM grades;
 DELETE FROM subject_enrollments;
-DELETE FROM teaching_loadsPermalink;
+DELETE FROM teaching_loads;
 SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO professors (professor_id, category) VALUES
