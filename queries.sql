@@ -67,5 +67,28 @@ SELECT *
 FROM v_students
 ;
 
+-- Funciones
+SELECT AVG(g.grade_value) AS average_grade
+FROM grades g
+WHERE g.group_id=1
+;
+
+SELECT SUM(s.credits) AS Suma_créditos
+FROM subjects s
+WHERE s.degree_id = 3
+;
+
+SELECT COUNT(*) AS Numero_estudiantes
+FROM students st
+;
+
+SELECT MAX(g.grade_value) AS Nota_máxima
+FROM grades g
+;
+
+SELECT MIN(g.grade_value) AS Nota_más_baja
+FROM grades g
+;
+
 
 
