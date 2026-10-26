@@ -112,5 +112,17 @@ FROM people p
 WHERE p.age BETWEEN 20 AND 30
 ;
 
+-- DISTINCT: Eliminación de duplicados
+SELECT DISTINCT g.group_name 
+FROM groups g
+;
 
+SELECT DISTINCT s.subject_type
+FROM subjects s
+;
+
+SELECT DISTINCT g.academic_year
+FROM `groups` g
+ORDER BY g.academic_year DESC
+;
 
