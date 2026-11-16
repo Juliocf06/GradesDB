@@ -171,5 +171,36 @@ FROM groups g
 WHERE g.academic_year BETWEEN 2020 AND 2023
 ORDER BY g.academic_year;
 
+-- Vistas complejas
+CREATE OR REPLACE VIEW v_grades_with_honors AS
+SELECT g.grade_id, g.student_id, g.group_id, g.grade_value, g.exam_call
+FROM grades g
+WHERE g.with_honors = 1;
+
+CREATE OR REPLACE VIEW v_student_grades AS
+SELECT 
+    p.person_id,
+    p.first_name,
+    p.last_name,
+    p.dni,
+    g.grade_value,
+    g.exam_call,
+    g.with_honors,
+    gr.group_name,
+    gr.activity,
+    gr.academic_year,
+    s.subject_name,
+    s.acronym,
+    s.credits
+FROM people p
+JOIN students st ON p.person_id = st.student_id
+JOIN grades g ON st.student_id = g.student_id
+JOIN groups gr ON g.group_id = gr.group_id
+JOIN subjects s ON gr.subject_id = s.subject_id
+;
+
+
+
+
 
 

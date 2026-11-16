@@ -102,7 +102,7 @@ INSERT INTO subjects (
     (17, 3, 'Inteligencia Artificial', 'IA', 6, 2, 'Obligatoria');
     
 -- IISSI-1 de TI tiene un grupo de teoría y dos grupos de laboratorio
-INSERT INTO groups (group_id, subject_id, group_name, activity, academic_year) VALUES
+INSERT INTO `groups` (group_id, subject_id, group_name, activity, academic_year) VALUES
         (1, 11, 'T1', 'Teoría', 2024),
         (2, 11, 'L1', 'Laboratorio', 2024),
         (3, 11, 'L2', 'Laboratorio', 2024);
@@ -175,3 +175,4 @@ INSERT INTO teaching_loads (professor_id, group_id, credits) VALUES
 	(3, 2, 3.0),
 	(5, 3, 1.5),
 	(4, 3, 1.5);
+	
