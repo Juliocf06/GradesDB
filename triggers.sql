@@ -172,3 +172,61 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- EJERCICIO3: Validar que un grado no pueda tener más de 240 créditos en total sumando todas sus asignaturas.
+CREATE OR REPLACE TRIGGER t_degrees_240
+BEFORE INSERT OR UPDATE ON subjects
+FOR EACH ROW
+BEGIN
+    DECLARE v_total INT;
+
+    -- Créditos de las otras asignaturas
+    SELECT COALESCE(SUM(credits), 0) INTO v_total
+    FROM subjects
+    WHERE degree_id = NEW.degree_id AND subject_id <> NEW.subject_id
+
+    -- Sumo los créditos de los cambios
+    IF v_total + NEW.credits >240 THEN
+    SIGNAL SQLSTATE "45000"
+        SET MESSAGE_TEXT "El grado no puede superar los 240 créditos en total";
+    END IF;
+END//
+
+DELIMITER //
+
+-- Un alumno no puede estar matriculado en más de 60 créditos por año académico. El año está en groups, así que se calcula a partir de los grupos del alumno.
+CREATE OR REPLACE TRIGGER t_biu_group_enrollments_credits
+BEFORE INSERT OR UPDATE ON group_enrollments
+FOR EACH ROW
+BEGIN
+    DECLARE v_subject_id INT;
+    DECLARE v_academic_year YEAR;
+    DECLARE v_total INT;
+
+    -- Asignatura y año del grupo en el que se matricula
+    SELECT subject_id, academic_year INTO v_subject_id, v_academic_year
+    FROM `groups`
+    WHERE group_id = NEW.group_id;
+
+    -- Créditos de las asignaturas DISTINTAS del alumno en ese año, incluida la del grupo nuevo (cada asignatura se cuenta una sola vez, aunque el alumno esté en su grupo de teoría y en el de laboratorio)
+    SELECT COALESCE(SUM(s.credits), 0) INTO v_total
+    FROM subjects s
+    WHERE s.subject_id = v_subject_id
+       OR s.subject_id IN (
+            SELECT gr.subject_id
+            FROM group_enrollments ge
+            JOIN `groups` gr ON gr.group_id = ge.group_id
+            WHERE ge.student_id = NEW.student_id
+              AND gr.academic_year = v_academic_year
+              -- excluye la propia fila al actualizar (en INSERT, OLD es NULL)
+              AND NOT (ge.student_id <=> OLD.student_id
+                       AND ge.group_id <=> OLD.group_id)
+          );
+
+    IF v_total > 60 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Un alumno no puede superar los 60 créditos por año académico';
+    END IF;
+END//
+
+DELIMITER ;
