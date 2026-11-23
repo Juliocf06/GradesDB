@@ -96,3 +96,89 @@ DELIMITER ;
 SELECT * FROM grades
 WHERE student_id IN (6, 7, 8) AND exam_call = 'Extraordinaria';
 
+
+-- Sesión A
+
+SELECT @@transaction_isolation;
+
+
+CALL p_populate();
+
+
+UPDATE grades
+SET grade_value = grade_value + 1
+WHERE grade_id = 3;
+
+
+-- Read Commited
+
+CALL p_populate();
+
+UPDATE grades
+SET grade_value = grade_value + 1
+WHERE grade_id = 3;
+
+
+-- Ejercicio 3 Sesion A
+START TRANSACTION;
+UPDATE grades SET grade_value = 9
+WHERE grade_id = 1;
+
+
+
+COMMIT;
+
+-- Sesión B
+
+SET SESSION TRANSACTION
+ISOLATION LEVEL REPEATABLE READ;
+START TRANSACTION;
+
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+
+
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+COMMIT;
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+
+-- Read Commited
+
+SET SESSION TRANSACTION
+ISOLATION LEVEL READ COMMITTED;
+START TRANSACTION;
+
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+
+
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+COMMIT;
+SELECT grade_value FROM grades
+WHERE grade_id = 3;
+
+
+-- Ejercicio 3 Sesion B
+-- a = 9,8
+SELECT grade_value FROM grades
+WHERE grade_id = 1; 
+
+
+-- b = 9
+SELECT grade_value FROM grades
+WHERE grade_id = 1;
+
+-- c = 9
+COMMIT;
+SELECT grade_value FROM grades
+WHERE grade_id = 1;
+
+
