@@ -1,4 +1,4 @@
-USE grades_db;
+USE gradesdb;
 
 DELIMITER //
 

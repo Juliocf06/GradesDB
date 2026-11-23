@@ -1,4 +1,4 @@
-USE grades_db;
+USE gradesdb;
 DELIMITER //
 CREATE OR REPLACE PROCEDURE p_delete_all_data()
 BEGIN
